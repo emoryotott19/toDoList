@@ -1,0 +1,11 @@
+body {
+  background-color: grey;
+}
+
+.weekend {
+  color: blue;
+}
+
+.weekday {
+  color: red;
+}
