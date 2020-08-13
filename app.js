@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const _ = require("lodash");
 
-mongoose.connect("mongodb://localhost:27017/toDoListDB", {useNewUrlParser:true});
+mongoose.connect("mongodb+srv://admin-emory:N!5HNTO$4m0P@cluster0.kfgjy.mongodb.net/toDoListDB?retryWrites=true&w=majority", {useNewUrlParser:true, useUnifiedTopology: true });
 
 
 const app = express();
@@ -41,12 +41,7 @@ const List = mongoose.model("List", listSchema);
 
 app.get("/", function(req, res) {
 
-  const omittedFields = {
-    _id: false,
-    __v: false
-  };
-
-  Item.find({}, omittedFields, function(err,results) {
+  Item.find({}, function(err,results) {
     if (err) {
       console.log(err);
     } else {
@@ -56,6 +51,7 @@ app.get("/", function(req, res) {
             console.log(err);
           } else {
             console.log("Successfully saved default items to DB");
+            res.redirect("/")
           }
         });
       }
@@ -86,19 +82,6 @@ app.post("/", function(req, res) {
   }
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 app.post("/delete", function(req, res) {
 
   const checkedItemName = req.body.checkbox;
@@ -122,28 +105,7 @@ app.post("/delete", function(req, res) {
     )
   }
 
-
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 app.get("/:customListName", function(req, res) {
   const customListName = _.capitalize(req.params.customListName);
@@ -169,14 +131,3 @@ app.get("/:customListName", function(req, res) {
 app.listen(3000, function() {
   console.log("server running on port 3000");
 });
-
-
-// app.get("/work", function(req, res) {
-//   res.render("list", {listTitle: "Work List", items: items});
-// });
-//
-//
-// app.post("/work", function(req,res) {
-//   const item = req.body.toDoEntry;
-//   res.redirect("/work");
-// });
