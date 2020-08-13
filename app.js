@@ -128,6 +128,12 @@ app.get("/:customListName", function(req, res) {
   });
 });
 
-app.listen(3000, function() {
-  console.log("server running on port 3000");
+let port = proccess.env.PORT:
+if (port === null) || port == "") {
+  port = 3000;
+}
+
+
+app.listen(port, function() {
+  console.log("server has started succesfully");
 });
