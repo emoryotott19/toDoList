@@ -129,7 +129,7 @@ app.get("/:customListName", function(req, res) {
 });
 
 let port = proccess.env.PORT;
-if (port === null) || port == "") {
+if (port === null) || (port == "") {
   port = 3000;
 }
 
